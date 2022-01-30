@@ -2,8 +2,6 @@ import throttle from "lodash.throttle";
 import { saveToClientStorage, getFromClientStorage,removeFromClientStorage } from './client-storage';
 
 const formRef = document.querySelector('.feedback-form');
-const emailRef = document.querySelector('.feedback-form input');
-const messageRef = document.querySelector('.feedback-form textarea');
 const LOCAL_STORAGE_FORM_FIELD_KEY = 'feedback-form-state';
 const formData = {
   email: "",
@@ -22,7 +20,11 @@ function formSubmit(event) {
   const userData = getFromClientStorage(LOCAL_STORAGE_FORM_FIELD_KEY);
   event.currentTarget.reset();
   removeFromClientStorage(LOCAL_STORAGE_FORM_FIELD_KEY);
-  if (!(userData.email === "" || userData.message === "")) console.log(userData);
+  if (userData) {
+    if (!(userData.email === "" || userData.message === "")) {
+      console.log(userData);
+    }
+  }  
   formData.email = "";
   formData.message = "";
 }
